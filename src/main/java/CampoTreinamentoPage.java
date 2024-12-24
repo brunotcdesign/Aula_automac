@@ -1,4 +1,4 @@
-import org.openqa.selenium.WebDriver;
+import core.DSL;
 
 public class CampoTreinamentoPage {
 	
@@ -9,8 +9,8 @@ public class CampoTreinamentoPage {
 	
 	private DSL dsl;
 	
-	public CampoTreinamentoPage(WebDriver driver) {
-		dsl = new DSL (driver);
+	public CampoTreinamentoPage() {
+		dsl = new DSL ();
 	}
 	
 	public void setNome (String nome,String sobrenome) {
@@ -37,4 +37,5 @@ public class CampoTreinamentoPage {
 	public void cadastrar () {
 		dsl.clicarBotao("elementosForm:cadastrar");
 	}
+
 }

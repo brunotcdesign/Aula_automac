@@ -2,9 +2,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import core.DSL;
+import core.DriverFactory;
 
 public class TesteCadastro {
 	
@@ -21,17 +24,15 @@ public class TesteCadastro {
 	
 	@Before
 	public void inicializa () {
-		System.setProperty("webdriver.chrome.driver", "C://drivers//chromedriver.exe");
-		driver  = new ChromeDriver();
-		driver.manage().window().maximize();		
-		driver.get("file:///C:/Users/User/OneDrive/Documentos/AULA/Java/Workspace%20-%20eclipse/Deckbox/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoTreinamentoPage(driver);
+		//instancia o driver através da classe DriverFactory
+		DriverFactory.getDriver().get("file:///C:/Users/User/OneDrive/Documentos/AULA/Java/Workspace%20-%20eclipse/Deckbox/src/main/resources/componentes.html");
+		dsl = new DSL();
+		page = new CampoTreinamentoPage();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.quit();
+		DriverFactory.killDriver();
 		System.out.println("ok");
 	}
 	
@@ -48,6 +49,23 @@ public class TesteCadastro {
 		java.util.List<WebElement> todos = dsl.obterTodosValoresCombo("elementosForm:esportes");
 		Assert.assertEquals(2, todos.size());
 		
+		driver.switchTo().frame("frame1");
+		dsl.clicar("frameButton");
+		Alert alert = driver.switchTo().alert();
+		String msg = alert.getText();
+		Assert.assertEquals("Frame OK!", msg);
+		alert.accept();		
+		driver.switchTo().defaultContent();
+		dsl.escreve("elementosForm:sugestoes", msg);
+		
+		dsl.clicar("buttonDelay");
+		
+	  //  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	//    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
+	    
+		dsl.espera_segundos(30);
+		dsl.escreve("novoCampo", msg);
+
 		page.cadastrar();
 		dsl.validar_contains("resultado", "Cadastrado!");
 	}

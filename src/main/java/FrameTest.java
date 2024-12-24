@@ -9,10 +9,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import core.DSL;
+
 
 public class FrameTest {
 	
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa () {
@@ -29,25 +32,25 @@ public class FrameTest {
 	
 	@Test
 	public void frameTest() {		
-		driver.switchTo().frame("frame1");		
-		driver.findElement(By.id("frameButton")).click();		
+		driver.switchTo().frame("frame1");
+		dsl.clicar("frameButton");
 		Alert alert = driver.switchTo().alert();
 		String msg = alert.getText();
 		Assert.assertEquals("Frame OK!", msg);
 		alert.accept();		
 		driver.switchTo().defaultContent();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(msg);	
+		dsl.escreve("elementosForm:nome", msg);
 	}
 	
 	
 	@Test
 	public void popupTest() {		
-		driver.findElement(By.id("buttonPopUpEasy")).click();
+		dsl.clicar("buttonPopUpEasy");
 		driver.switchTo().window("Popup");
-		driver.findElement(By.tagName("textarea")).sendKeys("funciona diabo");
+		dsl.escreve("textarea", "funciona diabo");
 		driver.close();		
-		driver.switchTo().window("");		
-		driver.findElement(By.tagName("textarea")).sendKeys("funcionou carai");		
+		driver.switchTo().window("");
+		dsl.escreve("textarea", "funcionou carai");
 	}
 	
 	@Test

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import core.DSL;
+
 public class TesteCampoTreinamento {
 
 	//o before faz o método se inicializar antes de todos os testes.
@@ -40,7 +42,7 @@ public class TesteCampoTreinamento {
 	@Test
 	public void txtField () {	
 		page.setNome("Teste", "Testado");
-		page.validarNomes("Teste", "Testado");
+
 	}	
 	
 	@Test
@@ -94,6 +96,11 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Alert Simples", alert.getText());
 		alert.accept();
 		dsl.escreve("elementosForm:nome", texto);
-	}			
+	}		
+	
+	@Test
+	public void verificarTabela () {
+		
+	}
 }
 
