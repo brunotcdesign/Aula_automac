@@ -1,13 +1,15 @@
+import static core.DriverFactory.getDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import core.DSL;
 import core.DriverFactory;
+
 
 public class TesteCadastro {
 	
@@ -17,7 +19,6 @@ public class TesteCadastro {
 	//Utilizar a object page para criar o objeto de testes, centralizando a manutenção do alvo dos testes.
 	//
 	
-	private WebDriver driver;
 	private DSL dsl;
 	private CampoTreinamentoPage page;
 
@@ -25,7 +26,7 @@ public class TesteCadastro {
 	@Before
 	public void inicializa () {
 		//instancia o driver através da classe DriverFactory
-		DriverFactory.getDriver().get("file:///C:/Users/User/OneDrive/Documentos/AULA/Java/Workspace%20-%20eclipse/Deckbox/src/main/resources/componentes.html");
+		getDriver().get("file:///C:/Users/User/OneDrive/Documentos/AULA/Java/Workspace%20-%20eclipse/Deckbox/src/main/resources/componentes.html");
 		dsl = new DSL();
 		page = new CampoTreinamentoPage();
 	}
@@ -49,13 +50,13 @@ public class TesteCadastro {
 		java.util.List<WebElement> todos = dsl.obterTodosValoresCombo("elementosForm:esportes");
 		Assert.assertEquals(2, todos.size());
 		
-		driver.switchTo().frame("frame1");
+		getDriver().switchTo().frame("frame1");
 		dsl.clicar("frameButton");
-		Alert alert = driver.switchTo().alert();
+		Alert alert = getDriver().switchTo().alert();
 		String msg = alert.getText();
 		Assert.assertEquals("Frame OK!", msg);
 		alert.accept();		
-		driver.switchTo().defaultContent();
+		getDriver().switchTo().defaultContent();
 		dsl.escreve("elementosForm:sugestoes", msg);
 		
 		dsl.clicar("buttonDelay");
