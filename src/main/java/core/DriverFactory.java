@@ -1,5 +1,7 @@
 package core;
 
+import java.nio.file.Paths;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -11,7 +13,8 @@ public class DriverFactory {
 	
 	public static WebDriver getDriver() {
 		if (driver == null) {
-			System.setProperty("webdriver.chrome.driver", "C://drivers//chromedriver.exe");
+			String driverPath = Paths.get("src/drivers/chromedriver.exe").toAbsolutePath().toString();
+			System.setProperty("webdriver.chrome.driver", driverPath);
 			driver  = new ChromeDriver();
 			driver.manage().window().maximize();	
 		}
@@ -23,17 +26,5 @@ public class DriverFactory {
 			driver.quit();
 			driver = null;
 		}
-	
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	}	
 }
