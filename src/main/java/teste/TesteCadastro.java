@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
@@ -14,6 +13,7 @@ import org.openqa.selenium.WebElement;
 
 import core.DSL;
 import core.DriverFactory;
+import dev.failsafe.internal.util.Assert;
 import page.CampoTreinamentoPage;
 
 public class TesteCadastro {
